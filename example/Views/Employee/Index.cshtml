@@ -1,0 +1,66 @@
+﻿@model List<WebAppCRUDEF.Context.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    setTimeout(() => {
+        const box = document.getElementById('hide');
+        box.style.display = 'none';
+    }, 5000);
+</script>
+
+<h2>Employee Information</h2>
+<hr />
+    <a href="@Url.Action("AddEmployee","Employee")"><i class="glyphicon glyphicon-plus"></i> Add New Employee</a>
+<br />
+    @if(TempData["MsgAdd"] != null)
+    {
+        <div id="hide", class="alert alert-success">
+            <strong>Good Work !! </strong> @TempData["MsgAdd"]
+        </div>
+    }
+    @if(TempData["MsgRem"] != null)
+    {
+        <div id="hide", class="alert alert-danger">
+            <strong>Warning !! </strong> @TempData["MsgRem"]
+        </div>
+    }
+    @if(TempData["MsgMod"] != null)
+    {
+        <div id="hide", class="alert alert-info">
+            <strong>Congratulations !! </strong> @TempData["MsgMod"]
+        </div>
+    }
+<hr />
+
+<table class="table table-hover">
+    <tr>
+        <th>Name</th>
+        <th>Joining Date</th>
+        <th>Email Address</th>
+        <th>Cell Phone Number</th>
+        <th>Salary</th>
+        <th>Designation</th>
+        <th>Options</th>
+    </tr>
+
+    @foreach (var items in Model)
+    {
+        <tr>
+            <td>@items.Name</td>
+            <td>@items.JoinDate.Value.ToShortDateString()</td>
+            <td>@items.Email</td>
+            <td>@items.Cell</td>
+            <td>@items.Salary</td>
+            <td>@items.Designation</td>
+            <td>
+                <a href="@Url.Action("AddEmployee", new { items.Id, items.Name, items.JoinDate, items.Email, items.Cell, items.Salary, items.Designation })"><i class="glyphicon glyphicon-edit"></i>Edit</a> |
+                <a href="@Url.Action("Delete", new { items.Id})"><i class="glyphicon glyphicon-remove"></i>Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
