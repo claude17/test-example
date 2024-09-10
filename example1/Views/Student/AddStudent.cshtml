@@ -1,0 +1,63 @@
+﻿@model WebApplication8.Context.student
+@{
+    ViewBag.Title = "AddStudent";
+    var database = new WebApplication8.Context.userEntities1(); 
+    var departments = database.departments.ToList();
+}
+
+
+<style>
+    .rederror {
+        color: red;
+        font-size: xx-small;
+    }
+</style>
+
+
+
+
+
+<h2>Add Student</h2>
+
+@using (Html.BeginForm("AddStudent", "student", FormMethod.Post))
+{
+
+    <div>
+        <div>
+            @Html.LabelFor(x => x.Name)
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Name, "", new { @class = "rederror" })
+        </div>
+        <br />
+        <div>
+            @Html.LabelFor(x => x.Cgpa)
+            @Html.TextBoxFor(x => x.Cgpa, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Cgpa, "", new { @class = "rederror" })
+        </div>
+        <br />
+        <div>
+            @Html.LabelFor(x => x.Admissiondate)
+            @Html.EditorFor(x => x.Admissiondate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(x => x.Admissiondate, "", new { @class = "rederror" })
+        </div>
+        <br />
+        <div>
+            @*@Html.LabelFor(x => x.department.Departmentname)
+            @Html.DropDownListFor(x => x.DepartmentId, (SelectList)ViewBag.departments, "---select---", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.DepartmentId, "", new { @class = "rederror" })*@
+
+            @Html.LabelFor(x => x.department.Departmentname)
+            @Html.DropDownListFor(x => x.DepartmentId, new SelectList(departments, "DepartmentId", "Departmentname"), "---select---", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.DepartmentId, "", new { @class = "rederror" })
+        </div>
+        <br />
+        <div>
+            <input id="saveBtn" type="submit" value="Save" class="btn btn-primary" />
+        </div>
+
+
+
+    </div>
+
+
+}

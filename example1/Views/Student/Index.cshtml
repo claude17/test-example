@@ -1,0 +1,48 @@
+﻿@model List<WebApplication8.Context.student>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    setTimeout(() => {
+        const box = document.getElementById('hide');
+        box.style.display = 'none';
+
+    }, 5000);
+</script>
+
+@if (TempData["Msg"] != null)
+{
+    <div id="hide" class="alert alert-success">
+        <strong>@TempData["Msg"]</strong>
+    </div>
+}
+
+<h2>Index</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>Name</th>
+        <th>Cgpa</th>
+        <th>Admission date</th>
+        <th>Department</th>
+        <th>Option</th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Name</td>
+                <td>@s.Cgpa</td>
+                <td>@s.Admissiondate</td>
+                <td>@s.department.Departmentname</td>
+                <td>
+                    <a href="@Url.Action("Delete", new { s.Id})"><i class="glyphicon glyphicon-remove"></i>Delete</a>
+                </td>
+            </tr>
+        }
+    }
+</table>

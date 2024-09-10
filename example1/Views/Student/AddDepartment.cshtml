@@ -1,0 +1,62 @@
+﻿@model WebApplication8.ViewModel.DepartmentViewModel
+
+@{
+    ViewBag.Title = "AddDepartment";
+}
+
+<script>
+    setTimeout(() => {
+        const box = document.getElementById('hide');
+        box.style.display = 'none';
+
+    }, 5000);
+</script>
+
+@if (TempData["Msg"] != null)
+{
+    <div id="hide" class="alert alert-success">
+        <strong>@TempData["Msg"]</strong>
+    </div>
+}
+
+<style>
+    .rederror {
+        color: red;
+        font-size: xx-small;
+    }
+</style>
+
+<h2>Add Department</h2>
+
+@using (Html.BeginForm("AddDepartment", "student", FormMethod.Post))
+{
+    <div>
+        <div>
+            @Html.LabelFor(x => x.NewDepartment.Departmentname)
+            @Html.TextBoxFor(x => x.NewDepartment.Departmentname, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.NewDepartment.Departmentname, "", new { @class = "rederror" })
+        </div>
+        <br />
+        <div>
+            <input id="saveBtn" type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+<table class="table table-hover">
+    <tr>
+        <th>Department ID</th>
+        <th>Department Name</th>
+    </tr>
+
+    @if (Model.Departments != null)
+    {
+        foreach (var d in Model.Departments)
+        {
+            <tr>
+                <td>@d.DepartmentId</td>
+                <td>@d.Departmentname</td>
+            </tr>
+        }
+    }
+</table>
